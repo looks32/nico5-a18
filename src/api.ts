@@ -12,14 +12,17 @@ export function getComingSoon() {
   return fetch(`${BASE_URL}/coming-soon`).then((r) => r.json());
 }
 
-export function getMovie(id) {
+// 일단 type any
+export function getMovie(id:any) {
   return fetch(`${BASE_URL}/movie?id=${id}`).then((r) => r.json());
 }
 
-export function makeImagePath(image) {
+// 일단 type any
+export function makeImagePath(image:any) {
   return `https://image.tmdb.org/t/p/w500${image}`;
 }
 
-export function makeBgPath(image) {
+// 일단 type any
+export function makeBgPath(image:any) {
   return `https://image.tmdb.org/t/p/original${image}`;
 }
