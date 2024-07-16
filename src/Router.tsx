@@ -1,7 +1,7 @@
 import { createBrowserRouter } from "react-router-dom";
 import Home from "./pages/Home";
-import ErrorComponent from "./components/errorComponent";
-import NotFound from "./components/notFound";
+import ErrorComponent from "./components/ErrorComponent";
+import NotFound from "./components/NotFound";
 import Root from "./Root";
 import NowPlaying from "./pages/NowPlaying";
 import ComingSoon from "./pages/ComingSoon";
