@@ -10,6 +10,11 @@ import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import 'swiper/css/scrollbar';
 
+const BannerWrap = styled.div`
+	/* padding-top: 40px; */
+	
+`
+
 const Banner = styled.div`
 	color: #fff;
 `
@@ -35,6 +40,8 @@ const BannerInner = styled.div`
 
 	img {
 		width: 100%;
+		height: 90vh;
+		object-fit: cover;
 	}
 `
 interface ISlidePopular {
@@ -50,7 +57,7 @@ export default function BannerSlide({popular}:ISlidePopular){
 	};
 
 	return(
-		<>
+		<BannerWrap>
 			<Swiper 
 			pagination={{ clickable: true }}
 			modules={[Pagination, Autoplay]}
@@ -61,13 +68,13 @@ export default function BannerSlide({popular}:ISlidePopular){
 				disableOnInteraction: false,
 			}}
 			>
-				{popular.slice(0,10).map((p:IMoive) => (
+				{popular.slice(0,5).map((p:IMoive) => (
 					<SwiperSlide key={p.id}>
 						<Banner>
 							<BannerInner>
 								<div>
 									<h2>{p.title}</h2>
-									<p>{`${p.overview?.slice(0,150)}...`}</p>
+									<p>{p.overview ? (p.overview.length < 150 ? p.overview : `${p.overview.slice(0, 150)}...`) : ''}</p>
 								</div>
 								<img src={makeBgPath(p.backdrop_path)} alt={p.title} />
 							</BannerInner>
@@ -81,6 +88,7 @@ export default function BannerSlide({popular}:ISlidePopular){
 					<span ref={progressContent}></span>
 				</div>
 			</Swiper>
-		</>
+		</BannerWrap>
+		
 	)
 }

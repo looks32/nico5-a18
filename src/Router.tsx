@@ -5,6 +5,7 @@ import NotFound from "./components/NotFound";
 import Root from "./Root";
 import NowPlaying from "./pages/NowPlaying";
 import ComingSoon from "./pages/ComingSoon";
+import Detail from "./pages/Detail";
 
 
 const router = createBrowserRouter([
@@ -15,17 +16,38 @@ const router = createBrowserRouter([
 			{
 				path:"",
 				element:<Home/>,
-				errorElement:<ErrorComponent/>
+				errorElement:<ErrorComponent/>,
+				children:[
+					{
+						path:"/detail/:movieId",
+						element:<Detail/>,
+						errorElement:<ErrorComponent/>,
+					},
+				],
 			},
 			{
 				path:"comingSoon",
 				element:<ComingSoon/>,
-				errorElement:<ErrorComponent/>
+				errorElement:<ErrorComponent/>,
+				children:[
+					{
+						path:"detail/:movieId",
+						element:<Detail/>,
+						errorElement:<ErrorComponent/>,
+					},
+				],
 			},
 			{
 				path:"nowPlaying",
 				element:<NowPlaying/>,
-				errorElement:<ErrorComponent/>
+				errorElement:<ErrorComponent/>,
+				children:[
+					{
+						path:"detail/:movieId",
+						element:<Detail/>,
+						errorElement:<ErrorComponent/>,
+					},
+				],
 			}
 		],
 		errorElement: <NotFound/>
