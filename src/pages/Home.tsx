@@ -32,7 +32,7 @@ const Cover = styled(motion.div)`
 		}
 
 		&:hover img {
-			filter: brightness(1);
+			filter: brightness(0.5);
 		}
 
 		div {
@@ -51,7 +51,7 @@ const Cover = styled(motion.div)`
 
 	img {
 		width: 100%;
-		filter: brightness(0.5);
+		filter: brightness(1);
 		transition: 0.3s filter;
 	}
 `

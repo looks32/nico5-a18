@@ -6,6 +6,7 @@ import Root from "./Root";
 import NowPlaying from "./pages/NowPlaying";
 import ComingSoon from "./pages/ComingSoon";
 import Detail from "./pages/Detail";
+import Popular from "./pages/Popular";
 
 
 const router = createBrowserRouter([
@@ -20,6 +21,18 @@ const router = createBrowserRouter([
 				children:[
 					{
 						path:"/detail/:movieId",
+						element:<Detail/>,
+						errorElement:<ErrorComponent/>,
+					},
+				],
+			},
+			{
+				path:"popular",
+				element:<Popular/>,
+				errorElement:<ErrorComponent/>,
+				children:[
+					{
+						path:"detail/:movieId",
 						element:<Detail/>,
 						errorElement:<ErrorComponent/>,
 					},

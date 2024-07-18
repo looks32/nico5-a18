@@ -50,6 +50,7 @@ const Circle = styled(motion.span)`
 export default function Header() {
 
     const homeMatch = useMatch('/');
+    const popularMatch = useMatch('/popular');
     const comingMatch = useMatch('/comingsoon');
     const nowMatch = useMatch('/nowplaying');
 
@@ -76,6 +77,11 @@ export default function Header() {
             <li>
                 <Link to="/">
                     Home {homeMatch != null ? <Circle layoutId="circle"/> : null}
+                </Link>
+            </li>
+            <li>
+                <Link to="/popular">
+                    Popular {popularMatch != null ? <Circle layoutId="circle"/> : null}
                 </Link>
             </li>
             <li>
