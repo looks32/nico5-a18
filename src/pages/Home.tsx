@@ -5,35 +5,74 @@ import BannerSlide from "../components/BannerSlide";
 import { motion, useAnimation, useScroll, useMotionValueEvent } from "framer-motion";
 import { useState } from "react";
 import CardList from "../components/Card";
-import { Outlet } from "react-router-dom";
+import { Link, Outlet } from "react-router-dom";
 import { AllWrap, CardWrap } from "../style/commonStyled";
+
+
+
+import 'swiper/css';
+import 'swiper/css/effect-coverflow';
+import 'swiper/css/pagination';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import { EffectCoverflow } from 'swiper/modules';
+import Tit from "../components/Tit";
+
+const Cover = styled.div`
+	position: relative;
+	margin-top: 60px;
+
+	a {
+		display: block;
+		width: 100%;
+		height: 100%;
+
+		&:hover p {
+			 bottom: 30px;
+		}
+
+		&:hover img {
+			filter: brightness(1);
+		}
+
+		div {
+			position: relative;
+
+			p {
+				position: absolute;
+				left:10px;
+				bottom:10px;
+				z-index: 10;
+				color:#fff;
+				transition: 0.3s bottom;
+			}
+		}
+	}
+
+	img {
+		width: 100%;
+		filter: brightness(0.5);
+		transition: 0.3s filter;
+	}
+`
+
+const Num = styled.p`
+	position: absolute;
+	left: -40px;
+	top: -50px;
+	z-index: 100;
+	color:#000;
+	font-size: 120px;
+	text-shadow: -1px 0px red, 0px 1px red, 1px 0px red, 0px -1px red;
+`
 
 
 
 function Home(){
 
-	const {data, isLoading} = useQuery<IGetMoviesResult>({ queryKey: ['popular'], queryFn: getPopular })
-
-	// const [max, setMax] = useState(10)
+	const {data, isLoading} = useQuery<IGetMoviesResult>({ queryKey: ['popular'], queryFn: getPopular });
 
 	// 작업 다 하면 삭제
 	console.log(data);
-
-	const { scrollYProgress } = useScroll();
-
-    useMotionValueEvent(scrollYProgress, "change", (latest) => {
-        // console.log("Page scroll: ", latest)
-
-		// console.log('max',max)
-        // if(latest === 1){
-        //     console.log('ababab',latest)
-		// 	setMax((prev)=> prev +10);
-			
-        // } else {
-        //     console.log('b',latest)
-		// 	//setMax((prev)=> prev +10);
-        // }
-    })
 
 	return (
 		<AllWrap>	
@@ -43,11 +82,40 @@ function Home(){
 				<>
 					<BannerSlide popular={data?.results || []}/>
 
-					<CardWrap>
-						{data?.results.map((p:IMoive) => (
-							<CardList id={p.id} title={p.title} poster_path={p.poster_path}/>
+					<Tit cont="Today's TOP 10"/>
+
+					<Swiper
+						effect={'coverflow'}
+						grabCursor={true}
+						centeredSlides={true}
+						slidesPerView={'auto'}
+						coverflowEffect={{
+							rotate: 50,
+							stretch: 0,
+							depth: 100,
+							modifier: 1,
+							slideShadows: true,
+						}}
+						pagination={true}
+						modules={[EffectCoverflow]}
+						className="popularSwiper"
+					>
+						{data?.results.slice(0,10).map((p:IMoive, i:number) => (
+							<SwiperSlide>
+								<Cover key={p.id}>
+									<Link to={`/detail/${p.id}`}>
+										<Num>{i+1}</Num>
+										<div>
+											<p>{p.title}</p>
+											<img src={ makeBgPath(p.poster_path)} alt={p.title} />
+										</div>
+									</Link>
+								</Cover>
+							</SwiperSlide>
+							
 						)) }
-					</CardWrap>
+					</Swiper>
+
 					<Outlet/>
 			</>
 			}
