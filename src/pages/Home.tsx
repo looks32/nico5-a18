@@ -16,6 +16,7 @@ import 'swiper/css/pagination';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { EffectCoverflow } from 'swiper/modules';
 import Tit from "../components/Tit";
+import Loading from "../components/Loading";
 
 const Cover = styled.div`
 	position: relative;
@@ -76,9 +77,9 @@ function Home(){
 
 	return (
 		<AllWrap>	
-			{/* 로딩 추가해야함 */}
+			
 			{
-				isLoading ? <div>loading</div> :
+				isLoading ? <Loading/> :
 				<>
 					<BannerSlide popular={data?.results || []}/>
 

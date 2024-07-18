@@ -1,8 +1,11 @@
 import React from 'react';
-import { useParams } from 'react-router-dom';
+import { useNavigate , useParams } from 'react-router-dom';
 import styled from 'styled-components';
 import { getMovie, IMoive } from '../api';
 import { useQuery } from '@tanstack/react-query';
+import { motion } from 'framer-motion';
+import Loading from '../components/Loading';
+
 
 
 const Overlay = styled.div`
@@ -24,17 +27,22 @@ export default function Detail() {
 	// 나중에 삭제
 	console.log(data)
 
+	// 뒤로가기
+	const navigate = useNavigate();
+	const overlayClick = () => navigate(-1);
+
   return (
 	<>
-		{/* 로딩 수정예정 */}
-		{isLoading ? <div>loading...</div> : 
-			<Overlay>
-				Detail {movieId}
-				<div>{data?.title}</div>
-				<div>{data?.overview}</div>
-				<div>{data?.runtime}</div>
-				<div>{data?.vote_average}</div>
-				<div>{data?.backdrop_path}</div>
+		{isLoading ? <Loading/> : 
+			<Overlay onClick={overlayClick}>
+				<motion.div key={movieId} layoutId={movieId+""}>
+					Detail {movieId}
+					<div>{data?.title}</div>
+					<div>{data?.overview}</div>
+					<div>{data?.runtime}</div>
+					<div>{data?.vote_average}</div>
+					<div>{data?.backdrop_path}</div>
+				</motion.div>
 			</Overlay>
 		}
 	</>

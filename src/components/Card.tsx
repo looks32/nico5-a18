@@ -3,13 +3,15 @@ import { IMoive, makeImagePath } from "../api";
 import styled from "styled-components";
 import { Link } from 'react-router-dom';
 
+import { motion } from "framer-motion";
 
-const CardList = styled.div`
+
+
+const CardList = styled(motion.div)`
 	position: relative;
 	width: 200px;
 	margin-top: 10px;
 	margin-left: 10px;
-	
 	> a {
 		display: block;
 		position: absolute;
@@ -39,7 +41,7 @@ const CardList = styled.div`
 
 export default function Card({id, title, poster_path}:IMoive) {
   return (
-	<CardList key={id}>
+	<CardList key={id} layoutId={id+""}>
 		<Link to={`detail/${id}`}>
 			<strong>{title}</strong>
 		</Link>

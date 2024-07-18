@@ -7,6 +7,7 @@ import { motion, useAnimation, useScroll, useMotionValueEvent } from "framer-mot
 import CardList from "../components/Card";
 import { Outlet } from "react-router-dom";
 import { AllWrap, CardWrap } from "../style/commonStyled";
+import Loading from "../components/Loading";
 
 export default function ComingSoon() {
 
@@ -15,9 +16,8 @@ export default function ComingSoon() {
   return (
 
     <AllWrap>	
-			{/* 로딩 추가해야함 */}
 			{
-				isLoading ? <div>loading</div> :
+				isLoading ? <Loading/> :
 				<>
 					<CardWrap>
 						{data?.results.map((p:IMoive) => (
