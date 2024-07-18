@@ -1,8 +1,8 @@
 import { createBrowserRouter } from "react-router-dom";
-import Home from "./pages/Home";
-import ErrorComponent from "./components/ErrorComponent";
-import NotFound from "./components/NotFound";
+import ErrorComponent from "./components/errorComponent";
+import NotFound from "./components/notFound";
 import Root from "./Root";
+import Home from "./pages/Home";
 import NowPlaying from "./pages/NowPlaying";
 import ComingSoon from "./pages/ComingSoon";
 import Detail from "./pages/Detail";

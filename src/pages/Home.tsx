@@ -17,6 +17,7 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import { EffectCoverflow } from 'swiper/modules';
 import Tit from "../components/Tit";
 import Loading from "../components/Loading";
+import MiniSlide from "../components/MiniSlide";
 
 const Cover = styled(motion.div)`
 	position: relative;
@@ -119,6 +120,18 @@ function Home(){
 					</Swiper>
 
 					<Outlet/>
+
+					<Tit cont="Popular"/>
+
+					<MiniSlide popular={data?.results || []}/>
+
+					<Tit cont="Coming Soon"/>
+
+					<MiniSlide popular={data?.results || []}/>
+
+					<Tit cont="Now Playing"/>
+
+					<MiniSlide popular={data?.results || []}/>
 			</>
 			}
 		</AllWrap>
