@@ -3,6 +3,7 @@ import { makeBgPath, IMoive } from "../api";
 import { Swiper, SwiperSlide } from 'swiper/react';
 import React, { useRef } from 'react';
 
+
 import { Autoplay, Pagination } from 'swiper/modules';
 
 import 'swiper/css';
@@ -69,10 +70,10 @@ export default function BannerSlide({popular}:ISlidePopular){
 			}}
 			>
 				{popular.slice(0,5).map((p:IMoive) => (
-					<SwiperSlide key={p.id}>
+					<SwiperSlide key={p.id} >
 						<Banner>
 							<BannerInner>
-								<div>
+								<div >
 									<h2>{p.title}</h2>
 									<p>{p.overview ? (p.overview.length < 150 ? p.overview : `${p.overview.slice(0, 150)}...`) : ''}</p>
 								</div>

@@ -18,7 +18,7 @@ import { EffectCoverflow } from 'swiper/modules';
 import Tit from "../components/Tit";
 import Loading from "../components/Loading";
 
-const Cover = styled.div`
+const Cover = styled(motion.div)`
 	position: relative;
 	margin-top: 60px;
 
@@ -58,12 +58,13 @@ const Cover = styled.div`
 
 const Num = styled.p`
 	position: absolute;
-	left: -40px;
-	top: -50px;
-	z-index: 100;
-	color:#000;
-	font-size: 120px;
-	text-shadow: -1px 0px red, 0px 1px red, 1px 0px red, 0px -1px red;
+    left: -131px;
+    top: 144px;
+    z-index: 0;
+    color: #000;
+    font-size: 310px;
+    text-shadow: -1px 0px red, 0px 1px red, 1px 0px red, 0px -1px red;
+    letter-spacing: -57.1px;
 `
 
 
@@ -103,7 +104,7 @@ function Home(){
 					>
 						{data?.results.slice(0,10).map((p:IMoive, i:number) => (
 							<SwiperSlide>
-								<Cover key={p.id}>
+								<Cover key={p.id} layoutId={p.id+""}>
 									<Link to={`/detail/${p.id}`}>
 										<Num>{i+1}</Num>
 										<div>
