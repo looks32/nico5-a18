@@ -6,12 +6,12 @@ import { Link } from 'react-router-dom';
 import { motion } from "framer-motion";
 
 
-
 const CardList = styled(motion.div)`
 	position: relative;
 	width: 200px;
 	margin-top: 10px;
 	margin-left: 10px;
+	border-radius: 20px;
 	> a {
 		display: block;
 		position: absolute;
@@ -20,12 +20,16 @@ const CardList = styled(motion.div)`
 		text-align: center;
 		background-color: rgba(0,0,0,0.5);
 		opacity: 0;
+		border-radius: 20px;
 		transition: 0.4s opacity;
 		&:hover {
 			opacity: 1;
 		}
 	}
-	img {width:100%}
+	img {
+		width:100%;
+		border-radius: 20px;
+	}
 
 	strong {
 		display: block;

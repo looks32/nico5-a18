@@ -45,7 +45,7 @@ export default function MiniSlide({popular}:ISlidePopular){
 				pagination={{ clickable: true }}
 				loop={true}
 				slidesPerView={6}
-				spaceBetween={30}
+				spaceBetween={15}
 				className="miniSwiper"
 			>
 				{popular.map((p:IMoive) => (
