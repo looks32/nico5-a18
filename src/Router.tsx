@@ -1,12 +1,13 @@
 import { createBrowserRouter } from "react-router-dom";
-import ErrorComponent from "./components/ErrorComponent";
-import NotFound from "./components/NotFound";
+import ErrorComponent from "./components/ErrorPage";
+import NotFound from "./components/NotFoundPage";
 import Root from "./Root";
 import Home from "./pages/Home";
 import NowPlaying from "./pages/NowPlaying";
 import ComingSoon from "./pages/ComingSoon";
 import Detail from "./pages/Detail";
 import Popular from "./pages/Popular";
+import Search from "./pages/Search";
 
 
 const router = createBrowserRouter([
@@ -53,6 +54,18 @@ const router = createBrowserRouter([
 			{
 				path:"nowPlaying",
 				element:<NowPlaying/>,
+				errorElement:<ErrorComponent/>,
+				children:[
+					{
+						path:"detail/:movieId",
+						element:<Detail/>,
+						errorElement:<ErrorComponent/>,
+					},
+				],
+			},
+			{
+				path:"search/:keyword",
+				element:<Search/>,
 				errorElement:<ErrorComponent/>,
 				children:[
 					{

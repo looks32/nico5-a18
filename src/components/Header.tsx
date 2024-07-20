@@ -1,7 +1,8 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Link, useMatch } from "react-router-dom";
 import styled from "styled-components";
 import { motion, useAnimation, useScroll, useMotionValueEvent } from "framer-motion";
+import { useNavigate , useParams } from 'react-router-dom';
 
 const HeaderWrap = styled.header`
     position: fixed;
@@ -30,6 +31,31 @@ const HeaderWrap = styled.header`
             color:#fff;
         }
     }
+    form {
+        position: relative;
+        span {
+            display: block;
+            position: absolute;
+            right:0;
+            bottom: 9px;
+            width: 0%;
+            height: 1px;
+            background-color: red;
+        }
+    }
+
+    form input {
+        display: inline-block;
+        color:#fff;
+        outline:none;
+        border:none;
+        border-bottom: 1px solid #fff;
+        background-color: #000;
+
+        &:focus span {
+            width: 100%;
+        }
+    }
 `
 
 const Circle = styled(motion.span)`
@@ -49,6 +75,16 @@ const Circle = styled(motion.span)`
 
 export default function Header() {
 
+    const navigate = useNavigate();
+
+    const [search, setSearch] = useState('');
+    const searchResult = (e:React.ChangeEvent<HTMLInputElement>) => setSearch(e.target.value);
+
+    const onSubmit = (e:React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+        navigate(`/search/${search}`);
+    }
+
     const homeMatch = useMatch('/');
     const popularMatch = useMatch('/popular');
     const comingMatch = useMatch('/comingsoon');
@@ -56,6 +92,7 @@ export default function Header() {
 
     const { scrollY } = useScroll();
     useMotionValueEvent(scrollY, "change", (latest) => {
+
         // console.log("Page scroll: ", latest)
 
         if(latest > 80){
@@ -95,6 +132,10 @@ export default function Header() {
                 </Link>
             </li>
         </ul>
+        <form onSubmit={onSubmit} >
+            <input type="text" value={search} onChange={searchResult}/>
+            <span></span>
+        </form>
     </HeaderWrap>
   );
 }

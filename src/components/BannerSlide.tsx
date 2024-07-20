@@ -60,14 +60,14 @@ export default function BannerSlide({popular}:ISlidePopular){
 	return(
 		<BannerWrap>
 			<Swiper 
-			pagination={{ clickable: true }}
-			modules={[Pagination, Autoplay]}
-			onAutoplayTimeLeft={onAutoplayTimeLeft}
-			loop={true}
-			autoplay={{
-				delay: 3000,
-				disableOnInteraction: false,
-			}}
+				pagination={{ clickable: true }}
+				modules={[Pagination, Autoplay]}
+				onAutoplayTimeLeft={onAutoplayTimeLeft}
+				loop={true}
+				autoplay={{
+					delay: 3000,
+					disableOnInteraction: false,
+				}}
 			>
 				{popular.slice(0,5).map((p:IMoive) => (
 					<SwiperSlide key={p.id} >

@@ -1,9 +1,9 @@
 import React from "react";
 import styled from "styled-components";
 
-type TitProps = {
+interface ITit {
     cont: string;
-  };
+};
 
 const Title = styled.h2`
     padding-top: 40px;
@@ -13,6 +13,6 @@ const Title = styled.h2`
     text-align: center;
 `
 
-export default function Tit({cont}:TitProps) {
+export default function Tit({cont}:ITit) {
   return <Title>{cont}</Title>;
 }

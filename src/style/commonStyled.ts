@@ -12,3 +12,19 @@ export const CardWrap = styled.div`
 	display: flex;
 	flex-wrap: wrap;
 `
+
+export const ErrorWrap = styled.div`
+  padding: 120px 60px;
+  color:#fff;
+  font-size: 60px;
+
+  a {
+    display: block;
+    margin-top: 20px;
+    font-size: 30px;
+    text-decoration: underline;
+    &:hover {
+      color : red;
+    }
+  }
+`

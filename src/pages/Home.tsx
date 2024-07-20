@@ -1,11 +1,11 @@
 import { useQuery } from "@tanstack/react-query";
-import { getPopular, IGetMoviesResult, IMoive, makeBgPath } from "../api";
+import { getPopular, getComingSoon, getNowPlaying, IGetMoviesResult, IMoive, makeBgPath } from "../api";
 import styled from "styled-components";
 import BannerSlide from "../components/BannerSlide";
 import { motion, useAnimation, useScroll, useMotionValueEvent } from "framer-motion";
 import { useState } from "react";
 import CardList from "../components/Card";
-import { Link, Outlet } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { AllWrap, CardWrap } from "../style/commonStyled";
 
 
@@ -72,10 +72,14 @@ const Num = styled.p`
 
 function Home(){
 
-	const {data, isLoading} = useQuery<IGetMoviesResult>({ queryKey: ['popular'], queryFn: getPopular });
+	const {data : popularData, isLoading : popularLoading} = useQuery<IGetMoviesResult>({ queryKey: ['popular'], queryFn: getPopular });
+	const {data : comingData, isLoading: comingLoading} = useQuery<IGetMoviesResult>({ queryKey: ['coming'], queryFn: getComingSoon })
+	const {data : nowData, isLoading : nowLoading} = useQuery<IGetMoviesResult>({ queryKey: ['now'], queryFn: getNowPlaying })
 
 	// 작업 다 하면 삭제
-	console.log(data);
+	console.log(popularData);
+
+	const isLoading = popularLoading || comingLoading || nowLoading;
 
 	return (
 		<AllWrap>	
@@ -83,10 +87,8 @@ function Home(){
 			{
 				isLoading ? <Loading/> :
 				<>
-					<BannerSlide popular={data?.results || []}/>
-
+					<BannerSlide popular={popularData?.results || []}/>
 					<Tit cont="Today's TOP 10"/>
-
 					<Swiper
 						effect={'coverflow'}
 						grabCursor={true}
@@ -103,14 +105,14 @@ function Home(){
 						modules={[EffectCoverflow]}
 						className="popularSwiper"
 					>
-						{data?.results.slice(0,10).map((p:IMoive, i:number) => (
+						{popularData?.results.slice(0,10).map((p:IMoive, i:number) => (
 							<SwiperSlide>
 								<Cover key={p.id} layoutId={p.id+""}>
 									<Link to={`/detail/${p.id}`}>
 										<Num>{i+1}</Num>
 										<div>
 											<p>{p.title}</p>
-											<img src={ makeBgPath(p.poster_path)} alt={p.title} />
+											<img src={makeBgPath(p.poster_path)} alt={p.title} />
 										</div>
 									</Link>
 								</Cover>
@@ -119,19 +121,17 @@ function Home(){
 						)) }
 					</Swiper>
 
-					<Outlet/>
-
 					<Tit cont="Popular"/>
 
-					<MiniSlide popular={data?.results || []}/>
+					<MiniSlide popular={popularData?.results || []} layout="popular"/>
 
 					<Tit cont="Coming Soon"/>
 
-					<MiniSlide popular={data?.results || []}/>
+					<MiniSlide popular={comingData?.results || []} layout="coming"/>
 
 					<Tit cont="Now Playing"/>
 
-					<MiniSlide popular={data?.results || []}/>
+					<MiniSlide popular={nowData?.results || []} layout="now"/>
 			</>
 			}
 		</AllWrap>
