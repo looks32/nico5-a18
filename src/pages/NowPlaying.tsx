@@ -6,7 +6,7 @@ import BannerSlide from "../components/BannerSlide";
 import { motion, useAnimation, useScroll, useMotionValueEvent } from "framer-motion";
 import CardList from "../components/Card";
 import { Outlet } from "react-router-dom";
-import { AllWrap, CardWrap } from "../style/commonStyled";
+import { AllWrap, CardWrap, SubInner } from "../style/commonStyled";
 import Loading from "../components/Loading";
 import Tit from "../components/Tit";
 
@@ -16,20 +16,22 @@ export default function NowPlaying() {
 
   return (
 
-    <AllWrap>	
-			{
-				isLoading ? <Loading/> :
-				<>
-					<Tit cont="Now Playing"/>
-					<CardWrap>
-						{data?.results.map((p:IMoive) => (
-							<CardList id={p.id} title={p.title} poster_path={p.poster_path}/>
-						)) }
-					</CardWrap>
-					<Outlet/>
+    <AllWrap>
+		<SubInner>	
+		{
+			isLoading ? <Loading/> :
+			<>
+				<Tit cont="Now Playing"/>
+				<CardWrap>
+					{data?.results.map((p:IMoive) => (
+						<CardList id={p.id} title={p.title} poster_path={p.poster_path}/>
+					)) }
+				</CardWrap>
+				<Outlet/>
 			</>
-			}
-		</AllWrap>
+		}
+		</SubInner>
+	</AllWrap>
 
   );
 }

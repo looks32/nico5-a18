@@ -4,56 +4,73 @@ import styled from "styled-components";
 import { motion, useAnimation, useScroll, useMotionValueEvent } from "framer-motion";
 import { useNavigate , useParams } from 'react-router-dom';
 
+
 const HeaderWrap = styled.header`
     position: fixed;
     top: 0;
     z-index: 10;
     display: flex;
     justify-content: space-between;
+    align-items: center;
     width: 100%;
-    height: 50px;
+    height: 60px;
     padding: 10px 20px;
-
     background-color: #000;
 
     h1 {
         color:#fff;
+        img {
+            width:40px;
+        }
     }
 
     ul {
         display: flex;
         justify-content: space-between;
         li ~ li {
-            margin-left: 10px;
+            margin-left: 20px;
         }
         a {
             position: relative;
             color:#fff;
-        }
-    }
-    form {
-        position: relative;
-        span {
-            display: block;
-            position: absolute;
-            right:0;
-            bottom: 9px;
-            width: 0%;
-            height: 1px;
-            background-color: red;
+            transition: 0.3s color;
+            &:hover {
+                color: red;
+            }
         }
     }
 
-    form input {
+    form {
+        position: relative;
+        input {
         display: inline-block;
+        width: 120px;
+        padding-right: 25px;
         color:#fff;
         outline:none;
         border:none;
         border-bottom: 1px solid #fff;
         background-color: #000;
-
-        &:focus span {
-            width: 100%;
+        transition: 0.3s border;
+            &:focus {
+                border-color: red;
+            }
+        }
+            
+        button {
+            display: inline-block;
+            position: absolute;
+            right: 2px;
+            bottom: 4px;
+            width: 15px;
+            height: 15px;
+            padding:0;
+            border: none;
+            cursor: pointer;
+            background-color: transparent;
+            img {
+                width : 15px;
+            }
         }
     }
 `
@@ -63,11 +80,10 @@ const Circle = styled(motion.span)`
   width: 5px;
   height: 5px;
   border-radius: 5px;
-  bottom: -5px;
+  bottom: -8px;
   left: 0;
   right: 0;
   margin: 0 auto;
-  /* background-color: ${(props) => props.theme.red}; */
   background-color: red;
 `;
 
@@ -81,11 +97,17 @@ export default function Header() {
     const searchResult = (e:React.ChangeEvent<HTMLInputElement>) => setSearch(e.target.value);
 
     const onSubmit = (e:React.FormEvent<HTMLFormElement>) => {
+
         e.preventDefault();
-        navigate(`/search/${search}`);
+
+        if(search.length > 0){
+            navigate(`/search/${search}`);
+            setSearch('');
+        } else {
+            alert('Please enter your search term');
+        }
     }
 
-    const homeMatch = useMatch('/');
     const popularMatch = useMatch('/popular');
     const comingMatch = useMatch('/comingsoon');
     const nowMatch = useMatch('/nowplaying');
@@ -107,15 +129,10 @@ export default function Header() {
     <HeaderWrap>
         <h1>
             <Link to="/">
-            logo
+                <img src={`${process.env.PUBLIC_URL}/nLogo.png`} alt="" />
             </Link>
         </h1>
         <ul>
-            <li>
-                <Link to="/">
-                    Home {homeMatch != null ? <Circle layoutId="circle"/> : null}
-                </Link>
-            </li>
             <li>
                 <Link to="/popular">
                     Popular {popularMatch != null ? <Circle layoutId="circle"/> : null}
@@ -134,7 +151,9 @@ export default function Header() {
         </ul>
         <form onSubmit={onSubmit} >
             <input type="text" value={search} onChange={searchResult}/>
-            <span></span>
+            <button type="submit">
+                <img src={`${process.env.PUBLIC_URL}/icon_search.svg`} alt="검색 아이콘" />
+            </button>
         </form>
     </HeaderWrap>
   );

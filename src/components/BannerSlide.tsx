@@ -12,8 +12,7 @@ import 'swiper/css/pagination';
 import 'swiper/css/scrollbar';
 
 const BannerWrap = styled.div`
-	/* padding-top: 40px; */
-	
+	padding-top: 60px;
 `
 
 const Banner = styled.div`

@@ -83,7 +83,6 @@ function Home(){
 
 	return (
 		<AllWrap>	
-			
 			{
 				isLoading ? <Loading/> :
 				<>
