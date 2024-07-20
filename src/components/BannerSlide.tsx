@@ -3,7 +3,6 @@ import { makeBgPath, IMoive } from "../api";
 import { Swiper, SwiperSlide } from 'swiper/react';
 import React, { useRef } from 'react';
 
-
 import { Autoplay, Pagination } from 'swiper/modules';
 
 import 'swiper/css';

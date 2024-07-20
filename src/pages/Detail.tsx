@@ -1,14 +1,14 @@
 import React from 'react';
-import { useLocation, useNavigate , useParams, useSearchParams } from 'react-router-dom';
+import { useLocation, useNavigate , useParams } from 'react-router-dom';
 import styled from 'styled-components';
-import { getMovie, IMoive } from '../api';
+import { getMovie, IMoive, makeImagePath } from '../api';
 import { useQuery } from '@tanstack/react-query';
-import { AnimatePresence, motion } from 'framer-motion';
-import Loading from '../components/Loading';
-
-
+import { motion } from 'framer-motion';
 
 const Overlay = styled(motion.div)`
+	display: flex;
+	justify-content: center;
+	align-items: center;
 	position: fixed;
 	left: 0;
 	top: 0;
@@ -16,8 +16,46 @@ const Overlay = styled(motion.div)`
 	width: 100%;
 	height: 100%;
 	background-color: rgba(0,0,0,0.5);
-
 	color:#fff;
+`
+
+const Box = styled(motion.div)`
+	width:500px;
+	height:600px;
+	background-color: #000;
+	border-radius: 20px;
+	strong {
+		display: inline-block;
+		position: relative;
+		padding-left: 20px;
+		top: -18px;
+		font-size: 30px
+	}
+	p {
+		padding: 0 30px;
+		~ p {
+			margin-top: 10px;
+		}
+	}
+`
+const ImgBox = styled.div`
+	min-height: 281px;
+	img {
+		filter: brightness(0.7);
+		border-radius: 20px 20px 0 0;
+	}
+`
+
+const ScrollBox = styled.div`
+	height: calc(600px - 400px);
+	overflow: auto;
+	&::-webkit-scrollbar {
+		display: block;
+		width:5px;
+	}
+	&::-webkit-scrollbar-thumb {
+		background-color: #fff;
+	}
 `
 
 export default function Detail() {
@@ -33,15 +71,18 @@ export default function Detail() {
 
   return (
 	<>
-		<Overlay onClick={overlayClick}>
-			<motion.div key={movieId} layoutId={`${movieId}${type}`}>
-				Detail {movieId}
-				<div>{data?.title}{`${movieId}${type}`}</div>
-				<div>{data?.overview}</div>
-				<div>{data?.runtime}</div>
-				<div>{data?.vote_average}</div>
-				<div>{data?.backdrop_path}</div>
-			</motion.div>
+		<Overlay onClick={overlayClick}  layoutId={`${movieId}${type}`}>
+			<Box key={movieId}>
+				<ImgBox>
+					<img src={makeImagePath(data?.backdrop_path)} alt={data?.title} />
+				</ImgBox>
+				<strong>{data?.title}</strong>
+				<ScrollBox>
+					<p>{data?.overview}</p>
+					<p>runtime : {data?.runtime}m</p>
+					<p>rating : {data?.vote_average}</p>
+				</ScrollBox>
+			</Box>
 		</Overlay>
 	</>
   )

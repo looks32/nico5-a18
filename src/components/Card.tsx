@@ -9,9 +9,10 @@ import { motion } from "framer-motion";
 const CardList = styled(motion.div)`
 	position: relative;
 	width: 200px;
-	margin-top: 10px;
+	margin-top: 100px;
 	margin-left: 10px;
 	border-radius: 20px;
+
 	> a {
 		display: block;
 		position: absolute;
@@ -45,9 +46,9 @@ const CardList = styled(motion.div)`
 
 export default function Card({id, title, poster_path, layout}:IMoive) {
   return (
-	<CardList key={id} layoutId={`${id}${layout}`}>
+	<CardList key={id} layoutId={`${id}${layout}`} initial={{marginTop:"100px"}} animate={{marginTop: "10px"}}>
 		<Link to={`detail/${id}?type=${layout}`}>
-			<strong>{title} {`${id}${layout}`}</strong>
+			<strong>{title}</strong>
 		</Link>
 		<img src={makeImagePath(poster_path)} alt={title} />
 	</CardList>

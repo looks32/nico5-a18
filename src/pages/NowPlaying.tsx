@@ -1,9 +1,6 @@
 import React from "react";
 import { useQuery } from "@tanstack/react-query";
-import { getNowPlaying, IGetMoviesResult, IMoive, makeBgPath } from "../api";
-import styled from "styled-components";
-import BannerSlide from "../components/BannerSlide";
-import { motion, useAnimation, useScroll, useMotionValueEvent } from "framer-motion";
+import { getNowPlaying, IGetMoviesResult, IMoive } from "../api";
 import CardList from "../components/Card";
 import { Outlet, useMatch } from "react-router-dom";
 import { AllWrap, CardWrap, SubInner } from "../style/commonStyled";

@@ -2,11 +2,9 @@ import { useQuery } from "@tanstack/react-query";
 import { getPopular, getComingSoon, getNowPlaying, IGetMoviesResult, IMoive, makeBgPath } from "../api";
 import styled from "styled-components";
 import BannerSlide from "../components/BannerSlide";
-import { motion, useAnimation, useScroll, useMotionValueEvent, AnimatePresence } from "framer-motion";
-import { useState } from "react";
-import CardList from "../components/Card";
-import { Link, Navigate, Outlet, useMatch, useNavigate } from "react-router-dom";
-import { AllWrap, CardWrap } from "../style/commonStyled";
+import { motion } from "framer-motion";
+import { Link, Outlet, useMatch, useNavigate } from "react-router-dom";
+import { AllWrap } from "../style/commonStyled";
 
 
 

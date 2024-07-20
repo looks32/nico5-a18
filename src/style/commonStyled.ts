@@ -1,3 +1,4 @@
+import { motion } from "framer-motion";
 import styled from "styled-components";
 
 // 공통 inner
@@ -11,7 +12,7 @@ export const SubInner = styled.div`
 	padding-top: 100px;
 `
 
-export const CardWrap = styled.div`
+export const CardWrap = styled(motion.div)`
 	width: 840px;
 	margin: 50px auto 0;
 	display: flex;

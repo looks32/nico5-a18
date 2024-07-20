@@ -22,8 +22,17 @@ const Inner = styled(motion.div)`
 
 	a {
 		position: absolute;
-		display: block;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		width: 100%;
 		height: 100%;
+		background-color: rgba(0,0,0,0.5);
+		opacity: 0;
+		transition: 0.3s opacity;
+		&:hover {
+			opacity: 1;
+		}
 	}
 	
 	h2 {
@@ -55,7 +64,7 @@ export default function MiniSlide({popular,layout}:ISlidePopular){
 					<SwiperSlide key={p.id} >
 						<Inner layoutId={`${p.id}${layout}`}>
 							<Link to={`/detail/${p.id}?type=${layout}`}>
-								<h2>{p.title} {`${p.id}${layout}`}</h2>
+								<h2>{p.title}</h2>
 							</Link>
 							<img src={makeBgPath(p.backdrop_path)} alt={p.title}/>
 						</Inner>

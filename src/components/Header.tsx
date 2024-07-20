@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Link, useMatch } from "react-router-dom";
 import styled from "styled-components";
-import { motion, useAnimation, useScroll, useMotionValueEvent } from "framer-motion";
-import { useNavigate , useParams } from 'react-router-dom';
+import { motion, useScroll, useMotionValueEvent } from "framer-motion";
+import { useNavigate } from 'react-router-dom';
 
 
 const HeaderWrap = styled.header`

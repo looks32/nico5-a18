@@ -1,13 +1,12 @@
 import { useQuery } from "@tanstack/react-query";
 import React, { useMemo } from 'react';
-import { getPopular, getComingSoon, getNowPlaying, IGetMoviesResult, IMoive, makeBgPath } from "../api";
+import { getPopular, getComingSoon, getNowPlaying, IGetMoviesResult, IMoive } from "../api";
 import Loading from "../components/Loading";
 import CardList from "../components/Card";
 import { AllWrap, CardWrap } from "../style/commonStyled";
 import styled from "styled-components";
 
-import { Outlet, useNavigate , useParams } from 'react-router-dom';
-
+import { Outlet, useParams } from 'react-router-dom';
 
 const SearchWrap = styled.div`
 

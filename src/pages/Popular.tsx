@@ -1,15 +1,11 @@
 import React from "react";
 import { useQuery } from "@tanstack/react-query";
-import { getPopular, IGetMoviesResult, IMoive, makeBgPath } from "../api";
-import styled from "styled-components";
-import BannerSlide from "../components/BannerSlide";
-import { motion, useAnimation, useScroll, useMotionValueEvent } from "framer-motion";
+import { getPopular, IGetMoviesResult, IMoive } from "../api";
 import CardList from "../components/Card";
 import { Outlet, useMatch } from "react-router-dom";
 import { AllWrap, CardWrap, SubInner } from "../style/commonStyled";
 import Loading from "../components/Loading";
 import Tit from "../components/Tit";
-import Detail from "./Detail";
 
 export default function Popular() {
 
