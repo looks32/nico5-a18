@@ -46,9 +46,10 @@ const BannerInner = styled.div`
 `
 interface ISlidePopular {
 	popular: IMoive[];
+	layout: string;
 }
 
-export default function BannerSlide({popular}:ISlidePopular){
+export default function BannerSlide({popular, layout}:ISlidePopular){
 	const progressCircle = useRef<any | undefined>(null);
 	const progressContent = useRef<any | undefined>(null);
 	const onAutoplayTimeLeft = (s:string, time:number, progress:number) => {

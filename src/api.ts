@@ -7,7 +7,8 @@ export interface IMoive {
   backdrop_path?:string,
   poster_path?:string,
   vote_average?:number,
-  runtime?:number
+  runtime?:number,
+  layout?:string
 }
 
 export interface IGetMoviesResult {

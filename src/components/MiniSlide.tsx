@@ -54,7 +54,7 @@ export default function MiniSlide({popular,layout}:ISlidePopular){
 				{popular.map((p:IMoive) => (
 					<SwiperSlide key={p.id} >
 						<Inner layoutId={`${p.id}${layout}`}>
-							<Link to={`/detail/${p.id}`}>
+							<Link to={`/detail/${p.id}?type=${layout}`}>
 								<h2>{p.title} {`${p.id}${layout}`}</h2>
 							</Link>
 							<img src={makeBgPath(p.backdrop_path)} alt={p.title}/>

@@ -43,11 +43,11 @@ const CardList = styled(motion.div)`
 	}
 `
 
-export default function Card({id, title, poster_path}:IMoive) {
+export default function Card({id, title, poster_path, layout}:IMoive) {
   return (
-	<CardList key={id} layoutId={id+""}>
-		<Link to={`detail/${id}`}>
-			<strong>{title}</strong>
+	<CardList key={id} layoutId={`${id}${layout}`}>
+		<Link to={`detail/${id}?type=${layout}`}>
+			<strong>{title} {`${id}${layout}`}</strong>
 		</Link>
 		<img src={makeImagePath(poster_path)} alt={title} />
 	</CardList>

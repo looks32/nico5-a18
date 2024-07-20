@@ -2,10 +2,10 @@ import { useQuery } from "@tanstack/react-query";
 import { getPopular, getComingSoon, getNowPlaying, IGetMoviesResult, IMoive, makeBgPath } from "../api";
 import styled from "styled-components";
 import BannerSlide from "../components/BannerSlide";
-import { motion, useAnimation, useScroll, useMotionValueEvent } from "framer-motion";
+import { motion, useAnimation, useScroll, useMotionValueEvent, AnimatePresence } from "framer-motion";
 import { useState } from "react";
 import CardList from "../components/Card";
-import { Link } from "react-router-dom";
+import { Link, Navigate, Outlet, useMatch, useNavigate } from "react-router-dom";
 import { AllWrap, CardWrap } from "../style/commonStyled";
 
 
@@ -18,6 +18,8 @@ import { EffectCoverflow } from 'swiper/modules';
 import Tit from "../components/Tit";
 import Loading from "../components/Loading";
 import MiniSlide from "../components/MiniSlide";
+import Detail from "./Detail";
+import { addAbortSignal } from "stream";
 
 const Cover = styled(motion.div)`
 	position: relative;
@@ -70,14 +72,22 @@ const Num = styled.p`
 
 
 
+
 function Home(){
+
+	// const bigMovieMatch = useRouteMatch<{ movieId: string }>("/movies/:movieId");
 
 	const {data : popularData, isLoading : popularLoading} = useQuery<IGetMoviesResult>({ queryKey: ['popular'], queryFn: getPopular });
 	const {data : comingData, isLoading: comingLoading} = useQuery<IGetMoviesResult>({ queryKey: ['coming'], queryFn: getComingSoon })
 	const {data : nowData, isLoading : nowLoading} = useQuery<IGetMoviesResult>({ queryKey: ['now'], queryFn: getNowPlaying })
 
-	// 작업 다 하면 삭제
-	console.log(popularData);
+	const bigMovieMatch = useMatch("/detail/:movieId");
+
+	const navigate = useNavigate();
+
+	const onBoxClicked = (movieId: string) => {
+		navigate(`/detail/${movieId}`);
+	  };
 
 	const isLoading = popularLoading || comingLoading || nowLoading;
 
@@ -86,8 +96,10 @@ function Home(){
 			{
 				isLoading ? <Loading/> :
 				<>
-					<BannerSlide popular={popularData?.results || []}/>
+					<BannerSlide popular={popularData?.results || []} layout="mainPopular"/>
+
 					<Tit cont="Today's TOP 10"/>
+
 					<Swiper
 						effect={'coverflow'}
 						grabCursor={true}
@@ -106,17 +118,16 @@ function Home(){
 					>
 						{popularData?.results.slice(0,10).map((p:IMoive, i:number) => (
 							<SwiperSlide>
-								<Cover key={p.id} layoutId={p.id+""}>
-									<Link to={`/detail/${p.id}`}>
+								<Cover key={p.id} layoutId={`${p.id}slide`}>
+									<Link to={`/detail/${p.id}?type=slide`}>
 										<Num>{i+1}</Num>
 										<div>
-											<p>{p.title}</p>
+											<p>{p.title} {`${p.id}slide`}</p>
 											<img src={makeBgPath(p.poster_path)} alt={p.title} />
 										</div>
 									</Link>
 								</Cover>
 							</SwiperSlide>
-							
 						)) }
 					</Swiper>
 
@@ -131,7 +142,9 @@ function Home(){
 					<Tit cont="Now Playing"/>
 
 					<MiniSlide popular={nowData?.results || []} layout="now"/>
-			</>
+
+					<Outlet/>
+				</>
 			}
 		</AllWrap>
 

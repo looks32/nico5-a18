@@ -6,7 +6,7 @@ import CardList from "../components/Card";
 import { AllWrap, CardWrap } from "../style/commonStyled";
 import styled from "styled-components";
 
-import { useNavigate , useParams } from 'react-router-dom';
+import { Outlet, useNavigate , useParams } from 'react-router-dom';
 
 
 const SearchWrap = styled.div`
@@ -37,8 +37,6 @@ export default function Search() {
 
 	const {keyword} = useParams();
 
-	console.log('keyword',keyword);
-
 	const {data : popularData, isLoading : popularLoading} = useQuery<IGetMoviesResult>({ queryKey: ['popular'], queryFn: getPopular });
 	const {data : comingData, isLoading: comingLoading} = useQuery<IGetMoviesResult>({ queryKey: ['coming'], queryFn: getComingSoon })
 	const {data : nowData, isLoading : nowLoading} = useQuery<IGetMoviesResult>({ queryKey: ['now'], queryFn: getNowPlaying })
@@ -54,14 +52,10 @@ export default function Search() {
 		  return [];
 	}, [popularData, comingData, nowData])
 
-	// 나중에 삭제
-	console.log('last',mergedData)
 
 	const filteredData = mergedData.filter(movie => 
 		movie.title && keyword &&  movie.title.toLowerCase().includes(keyword.toLowerCase())
 	);
-	console.log(filteredData.length)
-
 	
   return (
 	<>
@@ -76,14 +70,15 @@ export default function Search() {
 
 				{filteredData.length > 0 ?
 					<>
-					
 					<CardWrap>
 						{filteredData.map((p:IMoive) => (
-							<CardList id={p.id} title={p.title} poster_path={p.poster_path}/>
+							<CardList id={p.id} title={p.title} poster_path={p.poster_path} layout="menuSearch"/>
 						)) }
 					</CardWrap>
 					</>
 				 : <NoResult>No results were found for your search.</NoResult>}
+
+				 <Outlet/>
 
 			</AllWrap>
 		}
