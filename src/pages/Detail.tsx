@@ -69,6 +69,13 @@ export default function Detail() {
 	const location = useLocation();
 	const type = new URLSearchParams(location.search).get('type');
 
+	const decimal = (num:number | undefined) => {
+		if (num === undefined) {
+			return 0; 
+		}
+			return Math.floor(num * 10) / 10;
+	}
+
   return (
 	<>
 		<Overlay onClick={overlayClick}  layoutId={`${movieId}${type}`}>
@@ -80,7 +87,7 @@ export default function Detail() {
 				<ScrollBox>
 					<p>{data?.overview}</p>
 					<p>runtime : {data?.runtime}m</p>
-					<p>rating : {data?.vote_average}</p>
+					<p>rating : {decimal(data?.vote_average)}</p>
 				</ScrollBox>
 			</Box>
 		</Overlay>

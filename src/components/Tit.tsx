@@ -7,7 +7,7 @@ interface ITit {
 
 const Title = styled.h2`
     padding-top: 40px;
-    color:#fff;
+    color:${(props) => props.theme.textColor};
     font-size:40px;
     font-weight: 900;
     text-align: center;

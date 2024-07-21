@@ -6,8 +6,6 @@ import { motion } from "framer-motion";
 import { Link, Outlet, useMatch, useNavigate } from "react-router-dom";
 import { AllWrap } from "../style/commonStyled";
 
-
-
 import 'swiper/css';
 import 'swiper/css/effect-coverflow';
 import 'swiper/css/pagination';
@@ -16,8 +14,6 @@ import { EffectCoverflow } from 'swiper/modules';
 import Tit from "../components/Tit";
 import Loading from "../components/Loading";
 import MiniSlide from "../components/MiniSlide";
-import Detail from "./Detail";
-import { addAbortSignal } from "stream";
 
 const Cover = styled(motion.div)`
 	position: relative;
@@ -68,21 +64,15 @@ const Num = styled.p`
     letter-spacing: -57.1px;
 `
 
-
-
-
 function Home(){
-
-	// const bigMovieMatch = useRouteMatch<{ movieId: string }>("/movies/:movieId");
 
 	const {data : popularData, isLoading : popularLoading} = useQuery<IGetMoviesResult>({ queryKey: ['popular'], queryFn: getPopular });
 	const {data : comingData, isLoading: comingLoading} = useQuery<IGetMoviesResult>({ queryKey: ['coming'], queryFn: getComingSoon })
 	const {data : nowData, isLoading : nowLoading} = useQuery<IGetMoviesResult>({ queryKey: ['now'], queryFn: getNowPlaying })
 
+	// 얘들 지우면 이상해진다 뭐지..
 	const bigMovieMatch = useMatch("/detail/:movieId");
-
 	const navigate = useNavigate();
-
 	const onBoxClicked = (movieId: string) => {
 		navigate(`/detail/${movieId}`);
 	  };
@@ -120,7 +110,7 @@ function Home(){
 									<Link to={`/detail/${p.id}?type=slide`}>
 										<Num>{i+1}</Num>
 										<div>
-											<p>{p.title} {`${p.id}slide`}</p>
+											<p>{p.title}</p>
 											<img src={makeBgPath(p.poster_path)} alt={p.title} />
 										</div>
 									</Link>

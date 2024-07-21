@@ -3,6 +3,8 @@ import { Link, useMatch } from "react-router-dom";
 import styled from "styled-components";
 import { motion, useScroll, useMotionValueEvent } from "framer-motion";
 import { useNavigate } from 'react-router-dom';
+import { useRecoilState } from "recoil";
+import { screenMode } from "../atoms";
 
 
 const HeaderWrap = styled.header`
@@ -15,7 +17,7 @@ const HeaderWrap = styled.header`
     width: 100%;
     height: 60px;
     padding: 10px 20px;
-    background-color: #000;
+    background-color:${(props) => props.theme.bgColor};
 
     h1 {
         color:#fff;
@@ -32,7 +34,7 @@ const HeaderWrap = styled.header`
         }
         a {
             position: relative;
-            color:#fff;
+            color:${(props) => props.theme.textColor};
             transition: 0.3s color;
             &:hover {
                 color: red;
@@ -42,6 +44,7 @@ const HeaderWrap = styled.header`
 
     form {
         position: relative;
+        padding-right: 20px;
         input {
         display: inline-block;
         width: 120px;
@@ -60,7 +63,7 @@ const HeaderWrap = styled.header`
         button {
             display: inline-block;
             position: absolute;
-            right: 2px;
+            right: 22px;
             bottom: 4px;
             width: 15px;
             height: 15px;
@@ -87,9 +90,38 @@ const Circle = styled(motion.span)`
   background-color: red;
 `;
 
+const Btns = styled.div`
+  position: absolute;
+  top: cale(50% - 15px);
+  right: 0;
+  button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 30px;
+    height: 30px;
+    color: ${(props) => props.theme.point};
+    border: none;
+    border-radius: 4px;
+    background: none;
+    cursor: pointer;
+    :hover {
+      background-color: ${(props) => props.theme.pointBg};
+    }
+  }
+`;
 
 
 export default function Header() {
+    const [mode, setMode] = useRecoilState(screenMode);
+
+    const toggleTheme = (theme: string) => {
+        if (theme === "dark") {
+            setMode("light");
+        } else {
+            setMode("dark");
+        }
+    };
 
     const navigate = useNavigate();
 
@@ -155,6 +187,25 @@ export default function Header() {
                 <img src={`${process.env.PUBLIC_URL}/icon_search.svg`} alt="검색 아이콘" />
             </button>
         </form>
+        <Btns>
+            {mode === "light" ? (
+            <button onClick={() => toggleTheme("light")} aria-label="light mode">
+                <svg fill="currentColor" viewBox="0 0 20 20" aria-hidden="true">
+                <path d="M10 2a.75.75 0 0 1 .75.75v1.5a.75.75 0 0 1-1.5 0v-1.5A.75.75 0 0 1 10 2ZM10 15a.75.75 0 0 1 .75.75v1.5a.75.75 0 0 1-1.5 0v-1.5A.75.75 0 0 1 10 15ZM10 7a3 3 0 1 0 0 6 3 3 0 0 0 0-6ZM15.657 5.404a.75.75 0 1 0-1.06-1.06l-1.061 1.06a.75.75 0 0 0 1.06 1.06l1.06-1.06ZM6.464 14.596a.75.75 0 1 0-1.06-1.06l-1.06 1.06a.75.75 0 0 0 1.06 1.06l1.06-1.06ZM18 10a.75.75 0 0 1-.75.75h-1.5a.75.75 0 0 1 0-1.5h1.5A.75.75 0 0 1 18 10ZM5 10a.75.75 0 0 1-.75.75h-1.5a.75.75 0 0 1 0-1.5h1.5A.75.75 0 0 1 5 10ZM14.596 15.657a.75.75 0 0 0 1.06-1.06l-1.06-1.061a.75.75 0 1 0-1.06 1.06l1.06 1.06ZM5.404 6.464a.75.75 0 0 0 1.06-1.06l-1.06-1.06a.75.75 0 1 0-1.061 1.06l1.06 1.06Z"></path>
+                </svg>
+            </button>
+            ) : (
+            <button onClick={() => toggleTheme("dark")} aria-label="dark mode">
+                <svg fill="currentColor" viewBox="0 0 20 20" aria-hidden="true">
+                <path
+                    clipRule="evenodd"
+                    fillRule="evenodd"
+                    d="M7.455 2.004a.75.75 0 0 1 .26.77 7 7 0 0 0 9.958 7.967.75.75 0 0 1 1.067.853A8.5 8.5 0 1 1 6.647 1.921a.75.75 0 0 1 .808.083Z"
+                ></path>
+                </svg>
+            </button>
+            )}
+      </Btns>
     </HeaderWrap>
   );
 }
