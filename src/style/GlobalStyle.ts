@@ -65,4 +65,11 @@ a {
   text-decoration:none;
   color:inherit;
 }
+
+.miniSwiper .swiper-pagination-bullet {
+  width:30px;
+  height: 2px;
+  border-radius: 0;
+  background-color:${(props) => props.theme.slideBtn}
+}
 `;

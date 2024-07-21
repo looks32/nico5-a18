@@ -5,6 +5,7 @@ import styled from "styled-components";
 export const AllWrap = styled.div`
 	background-color:${(props) => props.theme.bgColor};
 	padding-bottom: 100px;
+  transition: 0.3s background;
 `
 
 // sub page inner

@@ -18,6 +18,7 @@ const HeaderWrap = styled.header`
     height: 60px;
     padding: 10px 20px;
     background-color:${(props) => props.theme.bgColor};
+    transition: 0.3s background;
 
     h1 {
         color:#fff;
@@ -90,7 +91,7 @@ const Circle = styled(motion.span)`
   background-color: red;
 `;
 
-const Btns = styled.div`
+const DarkMode = styled.div`
   position: absolute;
   top: cale(50% - 15px);
   right: 0;
@@ -105,9 +106,6 @@ const Btns = styled.div`
     border-radius: 4px;
     background: none;
     cursor: pointer;
-    :hover {
-      background-color: ${(props) => props.theme.pointBg};
-    }
   }
 `;
 
@@ -187,7 +185,7 @@ export default function Header() {
                 <img src={`${process.env.PUBLIC_URL}/icon_search.svg`} alt="검색 아이콘" />
             </button>
         </form>
-        <Btns>
+        <DarkMode>
             {mode === "light" ? (
             <button onClick={() => toggleTheme("light")} aria-label="light mode">
                 <svg fill="currentColor" viewBox="0 0 20 20" aria-hidden="true">
@@ -205,7 +203,7 @@ export default function Header() {
                 </svg>
             </button>
             )}
-      </Btns>
+      </DarkMode>
     </HeaderWrap>
   );
 }

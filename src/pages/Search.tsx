@@ -15,7 +15,7 @@ const SearchWrap = styled.div`
 	h3 {
 		
 		font-size: 30px;
-		color:#fff;
+		color:${(props) => props.theme.textColor};
 		text-align: center;
 		strong {
 			font-weight: bold;
@@ -28,7 +28,7 @@ const NoResult = styled.div`
 	padding: 50px;
 	min-height: 50vh;
 	font-size: 30px;
-	color: #fff;
+	color:${(props) => props.theme.textColor};
 `
 
 

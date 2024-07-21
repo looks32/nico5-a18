@@ -3,9 +3,9 @@ import styled from 'styled-components';
 
 const FooterWrap = styled.footer`
 	padding: 40px;
-	color:#fff;
+	color:${(props) => props.theme.textColor};
 	text-align: right;
-	border-top: 1px solid #fff;
+	border-top: 1px solid ${(props) => props.theme.textColor};
 `
 
 export default function Footer() {

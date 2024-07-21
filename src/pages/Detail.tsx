@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useLocation, useNavigate , useParams } from 'react-router-dom';
 import styled from 'styled-components';
 import { getMovie, IMoive, makeImagePath } from '../api';
@@ -60,7 +60,26 @@ const ScrollBox = styled.div`
 
 export default function Detail() {
 	const {movieId} = useParams<string>();
-	const {data, isLoading} = useQuery<IMoive>({ queryKey: ['movie', movieId ],  queryFn: () => getMovie(movieId) })
+	const {data, isLoading} = useQuery<IMoive>({ queryKey: ['movie', movieId ],  queryFn: () => getMovie(movieId) });
+
+	// 팝업 고정
+	useEffect(() => {
+		setTimeout(function(){
+			document.body.style.cssText = `
+			position: fixed; 
+			top: -${window.scrollY}px;
+			overflow-y: scroll;
+			width: 100%;`;
+		}, 500);
+
+		return () => {
+		setTimeout(function(){
+		  const scrollY = document.body.style.top;
+		  document.body.style.cssText = "";
+		  window.scrollTo(0, parseInt(scrollY || "0", 10) * -1);
+		}, 500);
+		};
+	  }, []);
 
 	// 뒤로가기
 	const navigate = useNavigate();
